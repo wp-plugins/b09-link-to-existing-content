@@ -45,8 +45,14 @@ If you think it works and you like the functionality, don't wait and rate it her
 = Q. How do I make the custom fields of my posts in the link popup searchable? =
 A. Install the plugin "Search Everything" and activate the option "Search every custom field"
 
-= Q. Can I disable the shortcode functionality? =
-A. Yes you can. View the source code of the plugin for documentation about filters.
+= Q. How can I enable the shortcode functionality? =
+A. By putting this code into your functions.php:
+`
+add_filter("link_to_existing_content_use_shortcode", "my_link_to_existing_content_use_shortcode");
+function my_link_to_existing_content_use_shortcode(){
+    return true;
+}
+`
 
 
 == Screenshots ==
@@ -61,6 +67,10 @@ A. Yes you can. View the source code of the plugin for documentation about filte
 
 
 == Changelog ==
+
+= 1.4.0 = 
+* Added Support for the screen "media.php"
+* From now on, the shortcode functionality is disabled by default and has to be activated from the functions.php
 
 = 1.3.0 =
 * Now also works if the visual editor is disabled.

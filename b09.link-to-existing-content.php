@@ -2,7 +2,7 @@
 	/*
 	Plugin Name: B09 Link to Existing Content
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Also automatically adds a shortcode for internal links, with id, linktext and target. (deactivatable)
-	Version: 1.3.0
+	Version: 1.4.0
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -26,11 +26,11 @@
 		return $taxonomies;
 	}
 	
-	// Disable shortcode functionality completely:
+	// Enable shortcode functionality completely:
 	
 	add_filter("link_to_existing_content_use_shortcode", "my_link_to_existing_content_use_shortcode");
 	function my_link_to_existing_content_use_shortcode(){
-		return false;
+		return true;
 	}
 	
 	// Overwrite the default shortcode handling:
@@ -66,7 +66,7 @@
 		var $dir;
 		var $nonce;
 		var $shortcode_name = "link";
-		var $use_shortcode = true;
+		var $use_shortcode = false;
 		
 		function B09_Link_To_Existing_Content(){
 		
@@ -85,7 +85,7 @@
 			
 			// Add the plugin scripts
 			global $pagenow;
-			if(is_admin() && in_array($pagenow, array("post.php", "post-new.php"))){
+			if(is_admin() && in_array($pagenow, array("post.php", "post-new.php", "media.php"))){
 				add_action("admin_enqueue_scripts", array($this, "plugin_scripts") );
 			}
 		}
