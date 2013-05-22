@@ -11,22 +11,22 @@ Improves the built in "Link to existing content" dialog. Makes filters for post 
 
 == Description ==
 
-= A short Note =
-This plugin is very young, so there might still be bugs somewhere in there. Before you give a bad rating, help us to solve eventual issues by posting here to the support forum. That way, you will help the community much more than by just saying "it doesn't work, one star". Thanks.
-
-B09 Link to existing Content is a small plugin that is ment to improve the wordpress "Link to existing content"-functionality.
+= About this Plugin =
+B09 Link to Existing Content is a small plugin that is ment to improve the wordpress "Link to existing content"-functionality.
 
 * Default Behaviour is seamless, just continue using the Link PopUp as always
 * Consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> for full control over the search results when using "Link to existing Content"
-* Makes internal links more future-proof by using a shortcode with the post id. Just select the post you want to link to and click "Add Link", and the shortcode gets pasted to your editor and automatically handled in your themes.
+* Makes internal links more future-proof by using a shortcode with the post or taxonomy id. Just select the post you want to link to and click "Add Link", and the shortcode gets pasted to your editor and automatically handled in your themes.
 * Filters for this plugin:
  - Control if the shortcode functionality should be active or not: `link_to_existing_content_use_shortcode`
  - Control which post types should be searched: `link_to_existing_content_post_types`
  - Control which taxonomies should be searched: `link_to_existing_content_taxonomies`
 
-= Please Vote and Enjoy =
-Your votes really make a difference! Thanks.
+= A short Note =
+This plugin is very young, so there might still be bugs somewhere in there. Before you give it a bad rating, help us to solve eventual issues by posting here to the support forum. That way, you will help the community much more than by just saying "it doesn't work, one star". Thanks.
 
+= Votes =
+If you think it works and you like the functionality, don't wait and rate it here! That way, it will stay alive.
 
 == Installation ==
 
