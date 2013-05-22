@@ -22,6 +22,9 @@ B09 Link to Existing Content is a small plugin that is ment to improve the wordp
  - Control which post types should be searched: `link_to_existing_content_post_types`
  - Control which taxonomies should be searched: `link_to_existing_content_taxonomies`
 
+= Filter API =
+For more information about the usage of filters with this plugin, have a look to it's source code. It is all documented there.
+
 = A short Note =
 This plugin is very young, so there might still be bugs somewhere in there. Before you give it a bad rating, help us to solve eventual issues by posting here to the support forum. That way, you will help the community much more than by just saying "it doesn't work, one star". Thanks.
 
