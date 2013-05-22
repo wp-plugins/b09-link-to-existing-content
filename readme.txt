@@ -6,7 +6,7 @@ Tested up to: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Seamless integration of the "Link to existing Content"-functionality in Wordpress with the plugin "Search Everything". Makes Post Types and Taxonomies available for linking. Also automatically adds a shortcode for internal links, with id, linktext and target. (deactivatable)
+Seamless integration of the "Link to existing Content"-functionality in Wordpress with the plugin "Search Everything". Also automatically adds a shortcode for internal links, with id, linktext and target. (deactivatable)
 
 
 == Description ==
@@ -52,6 +52,9 @@ A. Yes you can. View the source code of the plugin for documentation about filte
 
 
 == Changelog ==
+
+= 1.3.0 =
+* Now also works if the visual editor is disabled.
 
 = 1.2.0 =
 * Added Functionality for linking to taxonomies from the "Link to Existing Content" dialog

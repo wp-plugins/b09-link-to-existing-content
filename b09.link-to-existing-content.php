@@ -2,7 +2,7 @@
 	/*
 	Plugin Name: B09 Link to Existing Content
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Also automatically adds a shortcode for internal links, with id, linktext and target. (deactivatable)
-	Version: 1.1.0
+	Version: 1.3.0
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
