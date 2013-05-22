@@ -15,8 +15,11 @@ B09 Link to existing Content is a small plugin that is ment to improve the wordp
 
 * Default Behaviour is seamless, just continue using the Link PopUp as always
 * Consider installing the plugin "Search Everything" for full control over the search results when using "Link to existing Content"
-* Makes internal links more future-proof by using a shortcode with the post id. Just select the post you want to link to and click "Add Link", and the shortcode gets pasted to your editor.
-* Offers Filters for the shortcode-functionality and for post types that shouold be listed in the search results. See source for more informations.
+* Makes internal links more future-proof by using a shortcode with the post id. Just select the post you want to link to and click "Add Link", and the shortcode gets pasted to your editor and automatically handled in your themes.
+* Filters for this plugin:
+ - Control if the shortcode functionality should be active or not: `link_to_existing_content_use_shortcode`
+ - Control which post types should be searched: `link_to_existing_content_post_types`
+ - Control which taxonomies should be searched: `link_to_existing_content_taxonomies`
 
 = Please Vote and Enjoy =
 Your votes really make a difference! Thanks.
