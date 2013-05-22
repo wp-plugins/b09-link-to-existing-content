@@ -67,8 +67,7 @@ A. Yes you can. View the source code of the plugin for documentation about filte
 
 = 1.1.0 =
 * The plugin uses the built-in admin-ajax functionality now
-* The shortcode appears directly in the url field, so it doesn't suprise the user if it get pasted to the editor
-* Changed default shortcode name to the more generic "link". It will stay this in the future
+* The shortcode appears directly in the url field, so it doesn't suprise the user if it gets pasted to the editor
 * Added custom css file
 
 = 1.0.0 =
