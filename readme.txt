@@ -6,7 +6,7 @@ Tested up to: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Seamless integration of the "Link to existing Content"-functionality in Wordpress with the plugin "Search Everything". Also automatically adds a shortcode for internal links, with id, linktext and target. (deactivatable)
+Improves the built in "Link to existing content" dialog. Makes filters for post types and taxonomies available, has optional shortcode support and makes "Search Everything" work with the wplink-dialog.
 
 
 == Description ==
@@ -17,7 +17,7 @@ This plugin is very young, so there might still be bugs somewhere in there. Befo
 B09 Link to existing Content is a small plugin that is ment to improve the wordpress "Link to existing content"-functionality.
 
 * Default Behaviour is seamless, just continue using the Link PopUp as always
-* Consider installing the plugin "Search Everything" for full control over the search results when using "Link to existing Content"
+* Consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> for full control over the search results when using "Link to existing Content"
 * Makes internal links more future-proof by using a shortcode with the post id. Just select the post you want to link to and click "Add Link", and the shortcode gets pasted to your editor and automatically handled in your themes.
 * Filters for this plugin:
  - Control if the shortcode functionality should be active or not: `link_to_existing_content_use_shortcode`
