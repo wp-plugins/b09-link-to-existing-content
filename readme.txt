@@ -11,7 +11,10 @@ Seamless integration of the "Link to existing Content"-functionality in Wordpres
 
 == Description ==
 
-B09 Link to existing Content is a small plugin that is ment to improve the wordpress "Link to existing Content"-functionality.
+= A short Note =
+This plugin is very young, so there might still be bugs somewhere in there. Before you give a bad rating, help us to solve eventual issues by posting here to the support forum. That way, you will help the community much more than by just saying "it doesn't work, one star". Thanks.
+
+B09 Link to existing Content is a small plugin that is ment to improve the wordpress "Link to existing content"-functionality.
 
 * Default Behaviour is seamless, just continue using the Link PopUp as always
 * Consider installing the plugin "Search Everything" for full control over the search results when using "Link to existing Content"
