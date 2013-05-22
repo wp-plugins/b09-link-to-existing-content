@@ -26,7 +26,7 @@
 		return $taxonomies;
 	}
 	
-	// Enable shortcode functionality completely:
+	// Enable shortcode functionality:
 	
 	add_filter("link_to_existing_content_use_shortcode", "my_link_to_existing_content_use_shortcode");
 	function my_link_to_existing_content_use_shortcode(){
