@@ -6,7 +6,7 @@ Tested up to: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Improves the built in "Link to existing content" dialog. Makes filters for post types and taxonomies available, has optional shortcode support and makes "Search Everything" work with the wplink-dialog.
+Improves the built in "Link to existing content" dialog. Provides filters, has optional shortcode support and improves searching.
 
 
 == Description ==
