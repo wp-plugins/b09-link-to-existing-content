@@ -16,14 +16,14 @@ B09 Link to Existing Content is a small plugin that is ment to improve the wordp
 
 * Default Behaviour is seamless, just continue using the Link PopUp as always
 * Consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> for full control over the search results when using "Link to existing Content"
-* Makes internal links more future-proof by using a shortcode with the post or taxonomy id. Just select the post you want to link to and click "Add Shortcode", and the shortcode gets pasted to your editor and automatically handled in your themes.
+* Optional: Makes internal links more future-proof by using a shortcode with the post or taxonomy id. Just select the post you want to link to and click "Add Shortcode", and the shortcode gets pasted to your editor and automatically handled in your themes. This feature has to be activated by using a shortcode, as described below:
 * Filters for this plugin:
  - Control if the shortcode functionality should be active or not: `link_to_existing_content_use_shortcode`
  - Control which post types should be searched: `link_to_existing_content_post_types`
  - Control which taxonomies should be searched: `link_to_existing_content_taxonomies`
 
 = Filter API =
-For more information about the usage of filters with this plugin, have a look at it's source code. It is all documented there.
+For more information about the usage of filters with this plugin, have a look at it's source code or the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/'>FAQ</a>. It is all documented there.
 
 = A short Note =
 This plugin is very young, so there might still be bugs somewhere in there. Before you give it a bad rating, help us to solve eventual issues by posting here to the support forum. That way, you will help the community much more than by just saying "it doesn't work, one star". Thanks.
@@ -37,8 +37,8 @@ If you think it works and you like the functionality, don't wait and rate it her
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Done. The plugin integrates seamlessly with the wordpress interface.
 4. Use Filters to customize the plugins behaviour, see source code of for documentation
-5. If you have custom fields in your post types, you should consider installing the plugin Search Everything and activate the option "Search every custom field".
-
+5. If you have custom fields in your post types, you should consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> and activate the option "Search every custom field".
+6. Check out the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/'>FAQ</a> for more information.
 
 == Frequently Asked Questions ==
 
@@ -51,6 +51,24 @@ A. By putting this code into your functions.php:
 add_filter("link_to_existing_content_use_shortcode", "my_link_to_existing_content_use_shortcode");
 function my_link_to_existing_content_use_shortcode(){
     return true;
+}
+`
+= Q. How can I control the post types that should be searched? =
+A. By putting this code into your functions.php:
+`
+add_filter("link_to_existing_content_post_types", "my_link_to_existing_content_post_types");
+function my_link_to_existing_content_post_types($post_types) {
+    $post_types = array("post");
+    return $post_types;
+}
+`
+= Q. How can I control the taxonomies that should be searched? =
+A. By putting this code into your functions.php:
+`
+add_filter("link_to_existing_content_taxonomies", "my_link_to_existing_content_taxonomies");
+function my_link_to_existing_content_taxonomies($taxonomies){
+	$taxonomies = array("category", "genre");
+	return $taxonomies;
 }
 `
 
