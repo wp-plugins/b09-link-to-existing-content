@@ -151,7 +151,7 @@
 				
 				// if there is no title
 				if(!$title)
-					$title = get_post($id)->post_title;
+					$title = get_the_title($id);
 					
 				// if there is no text, default to the post title
 				if(!$text)
