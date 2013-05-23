@@ -59,8 +59,8 @@ var wpLink, ltecWpLink;
 			$("#ltec-search-in #search-field").remove();
 			$("#ltec-search-in").append("<select id='ltec-search-select' class='link-search-field'></select>");
 			inputs.searchSelect = $("#ltec-search-select");
-			inputs.searchSelect.append("<option class='posts' value='posts' selected='selected'>Posts</option>");
-			inputs.searchSelect.append("<option class='taxonomies' value='taxonomies'>Taxonomies</option>");
+			inputs.searchSelect.append("<option class='posts' value='posts' selected='selected'>"+linkToExistingContent.wpLinkL10n.searchPostsLabel+"</option>");
+			inputs.searchSelect.append("<option class='taxonomies' value='taxonomies'>"+linkToExistingContent.wpLinkL10n.searchCategoriesLabel+"</option>");
 			inputs.searchSelect.change(function(){
 				wpLink.lastSearch = -1;
 				ltecWpLink.objectType = inputs.searchSelect.find("option:selected").val();

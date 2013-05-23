@@ -86,6 +86,11 @@ function my_link_to_existing_content_taxonomies($taxonomies){
 
 == Changelog ==
 
+= 1.4.1 =
+* Fixed Error in AJAX-Request if param "search" not being set
+* Added plugin textdomain and german localization
+* Added Settings / FAQ link to plugins overview page
+
 = 1.4.0 = 
 * Added Support for the screen "media.php"
 * From now on, the shortcode functionality is disabled by default and has to be activated from the functions.php

@@ -1,8 +1,9 @@
 <?php
 	/*
 	Plugin Name: B09 Link to Existing Content
-	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Also automatically adds a shortcode for internal links, with id, linktext and target. (deactivatable)
-	Version: 1.4.0
+	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
+	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
+	Version: 1.4.1
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -79,9 +80,12 @@
 				$_SERVER["SCRIPT_NAME"] = $this->path . "/b09.link-to-existing-content.php";
 			}
 			
+			add_action("plugins_loaded", array($this, "load_text_domain"));
 			add_action("init", array($this, "init"));
 			add_action('wp_ajax_b09-link-ajax', array($this, "ajax_link_action") );
 			
+			// Filters for the Plugins Overview
+			add_filter('plugin_action_links_' .plugin_basename( __FILE__ ), array( &$this, 'action_links') );
 			
 			// Add the plugin scripts
 			global $pagenow;
@@ -93,13 +97,16 @@
 		function init(){
 			// detect if the shortcode functionality should be used or not.
 			$this->use_shortcode = apply_filters("link_to_existing_content_use_shortcode", $this->use_shortcode);
-
 			// Add the shortcode hook
 			add_shortcode($this->shortcode_name, array($this, "render_internal_link_shortcode"));
 		}
 		
+		function load_text_domain(){
+			load_plugin_textdomain( 'ltec', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+		}
+		
 		/*
-		* 	Function render_internal_link
+		* 	Function render_internal_link_shortcode
 		*
 		*	@description: render the shortcodes for display in frontend
 		* 	@param: $atts => array(id, text, target)
@@ -131,7 +138,7 @@
 				if(!$title) {
 					$term = get_term($id, $taxonomy);
 					$title = $term->name;
-					$title = sprintf(__("Archive for %s"), $title);
+					$title = sprintf(__("Archive for %s", 'ltec'), $title);
 				}
 				
 			} else {
@@ -177,15 +184,17 @@
 			// localize the script
 			$ltec_localized = array(
 				'wpLinkL10n' => array(
-					'title' => __('Insert/edit link'),
-					'update' => __('Update'),
-					'save' => __('Add Link'),
-					'noTitle' => __('(no title)'),
-					'noMatchesFound' => __('No matches found.'),
-					'saveShortcode' => __('Add Shortcode'),
-					'shortcodeLabel' => __('Shortcode'),
-					'titlePlaceholder' => __('Automatic, type here to customize...'),
-					'searchIn' => __('Search in')
+					'title' => __('Insert/edit link', 'ltec'),
+					'update' => __('Update', 'ltec'),
+					'save' => __('Add Link', 'ltec'),
+					'noTitle' => __('(no title)', 'ltec'),
+					'searchPostsLabel' => __('Posts', 'ltec'),
+					'searchCategoriesLabel' => __('Categories', 'ltec'),
+					'noMatchesFound' => __('No matches found.', 'ltec'),
+					'shortcodeLabel' => __('Shortcode', 'ltec'),
+					'saveShortcode' => __('Add Shortcode', 'ltec'),
+					'titlePlaceholder' => __('Automatic, type here to customize...', 'ltec'),
+					'searchIn' => __('Search in', 'ltec')
 				),
 				'ajaxAction' => 'b09-link-ajax',
 				'useShortcode' => $this->use_shortcode ? 1 : 0,
@@ -209,8 +218,8 @@
 		function ajax_link_action(){
 			
 			// Parse the given arguments
-			$args["pagenum"] = $_POST["page"];
-			$args["s"] = $_POST["search"];
+			$args["pagenum"] = isset($_POST["page"]) ? $_POST["page"] : 1;
+			$args["s"] = isset($_POST["search"]) ? $_POST["search"] : false;
 			
 			
 			$args["objectType"] = isset($_POST["objectType"]) ? $_POST["objectType"] : "posts";
@@ -331,6 +340,30 @@
 			
 			die("false");
 		}
+		
+		/*
+		*	Function action_links
+		*
+		*	@description print the instructions link to the plugins screen
+		*
+		* 	@param      array      $data
+		*	@return     array      $data (modified) 		
+		*
+		*/
+		
+		function action_links($data) {
+			return array_merge(
+				$data,
+				array(
+					sprintf(
+						'<a href="%s" target="_blank">%s</a>',
+						"http://wordpress.org/plugins/b09-link-to-existing-content/faq/",
+						__('Instructions + FAQ', 'ltec')
+					)
+				)
+			);
+		}
+		
 		
 	}
 ?>
