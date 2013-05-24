@@ -43,7 +43,7 @@ If you think it works and you like the functionality, don't wait and rate it her
 == Frequently Asked Questions ==
 
 = Q. How do I make the custom fields of my posts in the link popup searchable? =
-A. Install the plugin "Search Everything" and activate the option "Search every custom field"
+A. Install the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> and activate the option "Search every custom field"
 
 = Q. How can I enable the shortcode functionality? =
 A. By putting this code into your functions.php:
