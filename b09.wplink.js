@@ -818,7 +818,7 @@ var wpLink, ltecWpLink;
 			this.querying = true;
 			
 			$.post( ajaxurl, query, function(r) {
-				self.page++;
+				self.page ++;
 				self.querying = false;
 				self.allLoaded = !r;
 				callback( r, query );

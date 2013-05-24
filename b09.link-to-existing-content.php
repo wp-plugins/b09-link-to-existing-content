@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 1.4.1
+	Version: 1.4.2
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -29,10 +29,8 @@
 	
 	// Enable shortcode functionality:
 	
-	add_filter("link_to_existing_content_use_shortcode", "my_link_to_existing_content_use_shortcode");
-	function my_link_to_existing_content_use_shortcode(){
-		return true;
-	}
+	add_filter("link_to_existing_content_use_shortcode", "__return_true");
+	
 	
 	// Overwrite the default shortcode handling:
 	
@@ -217,8 +215,11 @@
 		
 		function ajax_link_action(){
 			
+			
+			
 			// Parse the given arguments
-			$args["pagenum"] = isset($_POST["page"]) ? $_POST["page"] : 1;
+			$args["pagenum"] = isset($_POST["page"]) ? absint( $_POST["page"] ) : 1;
+			
 			$args["s"] = isset($_POST["search"]) ? $_POST["search"] : false;
 			
 			
@@ -237,21 +238,15 @@
 					die("false");
 				
 				
-				$query = array(
-					//"hide_empty" => false,
-					'number' => 20
-				);
+				$query = array();
 				
 				// Add the search string to the query if any was given
 				if ( isset( $args['s'] ) )
 					$query['search'] = $args['s'];
 				
-				// Normalize the page number
-				$args['pagenum'] = isset( $args['pagenum'] ) ? absint( $args['pagenum'] ) : 1;
-				
-				// Calculate the offset
-				$query['offset'] = $args['pagenum'] > 1 ? $query['number'] * ( $args['pagenum'] - 1 ) : 0;
-				
+				// offset doesn't work well with get_terms, so die if page is greater than one
+				if($args["pagenum"] > 1)
+					die("false");
 				
 				$terms = get_terms ($tax_names, $query);
 				
@@ -303,9 +298,6 @@
 				// Add the search string to the query if any was given
 				if ( isset( $args['s'] ) )
 					$query['s'] = $args['s'];
-				
-				// Normalize the page number
-				$args['pagenum'] = isset( $args['pagenum'] ) ? absint( $args['pagenum'] ) : 1;
 				
 				// Calculate the offset
 				$query['offset'] = $args['pagenum'] > 1 ? $query['posts_per_page'] * ( $args['pagenum'] - 1 ) : 0;

@@ -48,10 +48,7 @@ A. Install the plugin "Search Everything" and activate the option "Search every 
 = Q. How can I enable the shortcode functionality? =
 A. By putting this code into your functions.php:
 `
-add_filter("link_to_existing_content_use_shortcode", "my_link_to_existing_content_use_shortcode");
-function my_link_to_existing_content_use_shortcode(){
-    return true;
-}
+add_filter("link_to_existing_content_use_shortcode", "__return_true");
 `
 = Q. How can I control the post types that should be searched? =
 A. By putting this code into your functions.php:
@@ -71,6 +68,9 @@ function my_link_to_existing_content_taxonomies($taxonomies){
 	return $taxonomies;
 }
 `
+= Q. Did anyone actually ask all those questions? =
+A. No one did, but if he would, here would be the answers ;)
+
 
 
 == Screenshots ==
@@ -85,6 +85,9 @@ function my_link_to_existing_content_taxonomies($taxonomies){
 
 
 == Changelog ==
+
+= 1.4.2 =
+* Fixed Categories in the link popup loading infinitely
 
 = 1.4.1 =
 * Fixed Error in AJAX-Request if param "search" not being set
