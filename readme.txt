@@ -1,7 +1,7 @@
 === B09 Link to Existing Content ===
 Contributors: BASICS09
 Tags: wplink, links, internal, suppress_filters, filter, shortcode, tinymce, wysiwyg, admin, developer
-Requires at least: 3.0.0
+Requires at least: 3.2.1
 Tested up to: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,6 +15,7 @@ Improves the built in "Link to existing content" dialog. Provides filters, has o
 B09 Link to Existing Content is a small plugin that is ment to improve the wordpress "Link to existing content"-functionality.
 
 * Default Behaviour is seamless, just continue using the Link PopUp as always
+* New in version 1.5: Options Page to alter your personal settings
 * Consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> for full control over the search results when using "Link to existing Content"
 * Optional: Makes internal links more future-proof by using a shortcode with the post or taxonomy id. Just select the post you want to link to and click "Add Shortcode", and the shortcode gets pasted to your editor and automatically handled in your themes. This feature has to be activated by using a shortcode, as described below:
 * Filters for this plugin:
@@ -37,13 +38,17 @@ If you think it works and you like the functionality, don't wait and rate it her
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Done. The plugin integrates seamlessly with the wordpress interface.
 4. Use Filters to customize the plugins behaviour, see source code of for documentation
-5. If you have custom fields in your post types, you should consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> and activate the option "Search every custom field".
-6. Check out the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/'>FAQ</a> for more information.
+5. If you aren't comfortable with using filters, you can use the options page (since version 1.5) under "Settings › Link to existing content"
+6. If you have custom fields in your post types, you should consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> and activate the option "Search every custom field".
+7. Check out the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/'>FAQ</a> for more information.
 
 == Frequently Asked Questions ==
 
 = Q. How do I make the custom fields of my posts in the link popup searchable? =
 A. Install the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> and activate the option "Search every custom field"
+
+= Q. Do I really have to code the settings myself? =
+A. Since Version 1.5, you don't have to anymore. There is a new options page available now under "Settings › Link to existing content"
 
 = Q. How can I enable the shortcode functionality? =
 A. By putting this code into your functions.php:
@@ -83,8 +88,12 @@ A. No one did, but if he would, here would be the answers ;)
 
 4. The shortcode gets handled automatically by the plugin. Of course, you can overwrite it from your functions.php, if you want to.
 
+5. The options page for the plugin, introduced with version 1.5
 
 == Changelog ==
+
+= 1.5 =
+* Added an options page for the non-developers out there. Filters still have a higher priority though, so you won't have to change anything, if you don't want to.
 
 = 1.4.2 =
 * Fixed Categories in the link popup loading infinitely

@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 1.4.2
+	Version: 1.5
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -66,11 +66,13 @@
 		var $nonce;
 		var $shortcode_name = "link";
 		var $use_shortcode = false;
+		var $options;
 		
 		function B09_Link_To_Existing_Content(){
 		
 			$this->path = dirname(__FILE__).'';
 			$this->dir = plugins_url('',__FILE__);
+			$this->options = get_option('ltec_options');
 			
 			// Hack: Overwrite the $_SERVER["SCRIPT_NAME"], so that Search Everything can add it's filters
 			
@@ -90,13 +92,27 @@
 			if(is_admin() && in_array($pagenow, array("post.php", "post-new.php", "media.php"))){
 				add_action("admin_enqueue_scripts", array($this, "plugin_scripts") );
 			}
+			
+			// include the options page
+			if(is_admin()){
+				include ( $this->path  . '/views/ltec.options.php' );
+				$ltec_admin = new Link_to_Existing_Content_Admin();
+			}
+			
+			
+			
 		}
 		
 		function init(){
-			// detect if the shortcode functionality should be used or not.
+			
+			// Overwrite the use_shortcode setting with the stored option
+			if(isset($this->options["use_shortcode"]))
+				$this->use_shortcode = (bool) $this->options["use_shortcode"];
+			
+			// Apply the use_shortcode filter
 			$this->use_shortcode = apply_filters("link_to_existing_content_use_shortcode", $this->use_shortcode);
 			// Add the shortcode hook
-			add_shortcode($this->shortcode_name, array($this, "render_internal_link_shortcode"));
+			add_shortcode($this->shortcode_name, array($this, "render_link_shortcode"));
 		}
 		
 		function load_text_domain(){
@@ -104,7 +120,7 @@
 		}
 		
 		/*
-		* 	Function render_internal_link_shortcode
+		* 	Function render_link_shortcode
 		*
 		*	@description: render the shortcodes for display in frontend
 		* 	@param: $atts => array(id, text, target)
@@ -112,7 +128,7 @@
 		*
 		*/
 		
-		function render_internal_link_shortcode($atts){
+		function render_link_shortcode($atts){
 			$id = isset($atts["id"]) ? intval($atts["id"]) : false;
 			$text = isset($atts["text"]) ? $atts["text"] : false;
 			$taxonomy = isset($atts["tax"]) ? $atts["tax"] : false;
@@ -175,8 +191,8 @@
 			wp_deregister_script("wplink");
 			
 			// replace it with the plugins script version
-			wp_enqueue_script("b09-wplink-script", $this->dir . "/b09.wplink.js",array('jquery'), false, true);
-			wp_enqueue_style("b09-wplink-style", $this->dir . "/css/b09.wplink.css");
+			wp_enqueue_script("b09-wplink-script", $this->dir . "/js/ltec.wplink.js",array('jquery'), false, true);
+			wp_enqueue_style("b09-wplink-style", $this->dir . "/css/ltec.wplink.css");
 			
 
 			// localize the script
@@ -229,9 +245,12 @@
 				// Get all registered public taxonomies
 				$taxonomies = get_taxonomies( array( 'public' => true ), 'objects' );
 				$tax_names = array_keys( $taxonomies );
-	
 				
-				// Filter the taxonomies before searching their terms
+				// overwrite the taxonomies with the taxonomies stored in the ltec options
+				if(isset($this->options["taxonomies"]))
+					$tax_names = $this->options["taxonomies"];
+				
+				// Apply the taxonomy filter
 				$tax_names = apply_filters("link_to_existing_content_taxonomies", $tax_names);
 				
 				if(!is_array($tax_names) || !count($tax_names))
@@ -276,7 +295,12 @@
 				$pts = get_post_types( array( 'public' => true ), 'objects' );
 				$pt_names = array_keys( $pts );
 				
-				// Filter the post types, that should be included in the search.
+				// overwrite the taxonomies with the taxonomies stored in the ltec options
+				if(isset($this->options["post_types"]))
+					$pt_names = $this->options["post_types"];
+				
+				
+				// Apply the post_types filter
 				$pt_names = apply_filters("link_to_existing_content_post_types", $pt_names);
 				
 				if(!is_array($pt_names) || !count($pt_names))
