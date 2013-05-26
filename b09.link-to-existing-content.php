@@ -96,7 +96,7 @@
 			// include the options page
 			if(is_admin()){
 				include ( $this->path  . '/views/ltec.options.php' );
-				$ltec_admin = new Link_to_Existing_Content_Admin();
+				$ltec_admin = new Link_to_Existing_Content_Options($this->path);
 			}
 			
 			
