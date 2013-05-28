@@ -293,6 +293,8 @@
 			
 				// Get all registered public post types
 				$pts = get_post_types( array( 'public' => true ), 'objects' );
+				unset($pts["attachment"]);
+				
 				$pt_names = array_keys( $pts );
 				
 				// overwrite the taxonomies with the taxonomies stored in the ltec options
