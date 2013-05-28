@@ -92,6 +92,10 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 1.5.1 =
+* Fixed options form not updating if all options where disabled
+* Made check for existing shortcodes in options page more fail-proof
+
 = 1.5 =
 * Added an options page for the non-developers out there. Filters still have a higher priority though, so you won't have to change anything, if you don't want to.
 

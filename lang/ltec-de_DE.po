@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: B09 Link to existing Content\n"
-"POT-Creation-Date: 2013-05-26 18:16+0100\n"
-"PO-Revision-Date: 2013-05-26 18:17+0100\n"
+"POT-Creation-Date: 2013-05-28 13:57+0100\n"
+"PO-Revision-Date: 2013-05-28 13:58+0100\n"
 "Last-Translator: BASICS09 <info@basics09.de>\n"
 "Language-Team: BASICS09 <info@basics09.de>\n"
 "Language: de\n"
@@ -41,8 +41,9 @@ msgid "Posts"
 msgstr "Posts"
 
 #: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/b09.link-to-existing-content.php:206
-msgid "Categories"
-msgstr "Kategorien"
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:185
+msgid "Taxonomies"
+msgstr "Taxonomien"
 
 #: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/b09.link-to-existing-content.php:207
 msgid "No matches found."
@@ -69,12 +70,12 @@ msgid "Y/m/d"
 msgstr "Y/m/d"
 
 #: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/b09.link-to-existing-content.php:377
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:215
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:245
 msgid "Instructions + FAQ"
 msgstr "Anleitung + FAQ"
 
 #: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:24
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:100
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:130
 msgid "Options for Links to existing Content"
 msgstr "Einstellungen für Links auf bestehende Inhalte"
 
@@ -82,30 +83,31 @@ msgstr "Einstellungen für Links auf bestehende Inhalte"
 msgid "Link to existing Content"
 msgstr "Links auf bestehende Inhalte"
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:47
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:56
 msgid "Options saved."
 msgstr "Einstellungen gespeichert."
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:116
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:146
 msgid "Content Types"
 msgstr "Inhalts-Typen"
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:119
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:149
+#, php-format
 msgid ""
-"Control what content types you want to appear in the <em>Or link to existing "
-"content</em> dialog. Selecting all has the same result as selecting none."
+"Control what content types you want to appear in the %sOr link to existing "
+"content%s dialog. Selecting all has the same result as selecting none."
 msgstr ""
-"Kontrollieren Sie hier, welche Inhalts-Typen sie in dem </em>Oder verlinke "
-"auf bestehende Inhalte</em>-Dialog erscheinen sollen. Wenn alle ausgewählt "
+"Kontrollieren Sie hier, welche Inhalts-Typen sie in dem %sOder verlinke auf "
+"bestehende Inhalte%s - Dialog erscheinen sollen. Wenn alle ausgewählt "
 "werden, hat das den selben Effekt, wie keinen auszuwählen."
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:129
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:159
 msgid "Post Types"
 msgstr "Post Typen"
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:131
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:157
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:185
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:161
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:187
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:215
 msgid ""
 "Your theme seems to have a filter running for this setting. Remove it to be "
 "able to edit it from here."
@@ -113,19 +115,15 @@ msgstr ""
 "Im aktiven Theme scheint ein Filter für diese Einstellung zu laufen. "
 "Entfernen Sie ihn, um sie hier zu ändern."
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:155
-msgid "Taxonomy Archives"
-msgstr "Taxonomie-Archive"
-
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:176
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:206
 msgid "Other Options"
 msgstr "Andere Optionen"
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:183
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:213
 msgid "Shortcode Functionality"
 msgstr "Shortcode Funktionalität"
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:197
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:227
 msgid ""
 "Enable the plugin's built-in shortcode functionality. This will prevent "
 "links leading to 404-Pages, if the linked content doesn't exist anymore or "
@@ -136,13 +134,16 @@ msgstr ""
 "wenn ein Post nicht mehr existiert, oder sich die website-Adresse geändert "
 "hat"
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:206
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:236
 msgid "Save Changes"
 msgstr "Einstellungen Speichern"
 
-#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:211
+#: /Volumes/DataRasso/svn/b09-link-to-existing-content/trunk/views/ltec.options.php:241
 msgid ""
 "The settings can all be overwritten from your functions.php using filters."
 msgstr ""
 "Die Einstellungen können alle in der functions.php anhand von Filtern "
 "überschrieben werden."
+
+#~ msgid "Categories"
+#~ msgstr "Kategorien"
