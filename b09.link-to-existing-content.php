@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 1.5.1
+	Version: 1.5.2
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -135,6 +135,8 @@
 			$title = isset($atts["title"]) ? $atts["title"] : false;
 			$target = isset($atts["target"]) ? " target='{$atts['target']}'" : false;
 			
+			$link_class = "internal-link";
+			
 			
 			// if there is no ID, return only the text
 			if( !$id ) 
@@ -143,6 +145,7 @@
 			// if it is a taxonomy link
 			if($taxonomy) {
 				$link = get_term_link($id, $taxonomy);
+				$link_class .= " archive-link {$taxonomy}-{$id}";
 				
 				// if there is no link (for example, term doesn't exist anymore)
 				if( is_wp_error($link) ) 
@@ -158,6 +161,12 @@
 			} else {
 				// if it is a post link
 				$link = get_permalink($id);
+				$link_class .= " post-link";
+					
+				// add post type and id to link class
+				$post_type = get_post_type($id);
+				if($post_type)
+					$link_class .= " {$post_type}-{$id}";
 				
 				// if there is no link (for example, post doesn't exist anymore)
 				if(!$link)
@@ -172,7 +181,7 @@
 					$text = $title;
 			}
 			
-			$out = "<a class='internal-link' title='{$title}' href='{$link}' {$target}>{$text}</a>";
+			$out = "<a class='{$link_class}' title='{$title}' href='{$link}' {$target}>{$text}</a>";
 			return $out;
 		}
 		

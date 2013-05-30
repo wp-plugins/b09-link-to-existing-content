@@ -84,13 +84,22 @@ A. No one did, but if he would, here would be the answers ;)
 
 2. Shortcut functionality for internal links, so they don't break so easily in the future (server move, rewrite changes, …)
 
-3. An example of how a shortcode link to another post looks like
+3. The options page for the plugin, introduced with version 1.5
 
-4. The shortcode gets handled automatically by the plugin. Of course, you can overwrite it from your functions.php, if you want to.
+4. An example of how a shortcode link to another post looks like
 
-5. The options page for the plugin, introduced with version 1.5
+5. a taxonomy archive link in the frontend, automatically parsed by the plugin
+
+6. a post-link in the frontend
+
+7. The shortcode adds useful information about the post or taxonomy to the class of every link, so you can alter behaviour using css and javascript.
+
+
 
 == Changelog ==
+
+= 1.5.2 =
+* The Shortcode now automatically adds useful information about the post or taxonomy to every link in the frontend. See Screenshot #7 for more information
 
 = 1.5.1 =
 * Fixed options form not updating if all options where disabled
