@@ -129,12 +129,19 @@
 		*/
 		
 		function render_link_shortcode($atts){
+			
+			// parse the attributes
 			$id = isset($atts["id"]) ? intval($atts["id"]) : false;
 			$text = isset($atts["text"]) ? $atts["text"] : false;
 			$taxonomy = isset($atts["tax"]) ? $atts["tax"] : false;
 			$title = isset($atts["title"]) ? $atts["title"] : false;
 			$target = isset($atts["target"]) ? " target='{$atts['target']}'" : false;
 			
+			// remove eventual <a> tags from $text
+			$text = $this->strip_single("a", $text);
+			
+			
+			// initialize the link class
 			$link_class = "internal-link";
 			
 			
@@ -155,8 +162,11 @@
 				if(!$title) {
 					$term = get_term($id, $taxonomy);
 					$title = $term->name;
-					$title = sprintf(__("Archive for %s", 'ltec'), $title);
 				}
+				
+				// if there is no text, default to the title
+				if(!$text)
+					$text = $title;
 				
 			} else {
 				// if it is a post link
@@ -183,6 +193,13 @@
 			
 			$out = "<a class='{$link_class}' title='{$title}' href='{$link}' {$target}>{$text}</a>";
 			return $out;
+		}
+		
+		
+		function strip_single($tag, $string) {
+			$string=preg_replace('/<'.$tag.'[^>]*>/i', '', $string);
+			$string=preg_replace('/<\/'.$tag.'>/i', '', $string);
+			return $string;
 		}
 		
 		/*
