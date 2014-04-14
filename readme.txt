@@ -1,7 +1,7 @@
 === B09 Link to Existing Content ===
 Contributors: BASICS09
 Tags: wplink, links, internal, suppress_filters, filter, shortcode, tinymce, wysiwyg, admin, developer
-Requires at least: 3.2.1
+Requires at least: 3.2.3
 Tested up to: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -97,6 +97,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 
 == Changelog ==
+
+= 1.5.3 =
+* The script now also loads on the admin page "admin.php", not just the "post.php" pages. This makes it possible to also use the plugin on options pages with WYSIWYG-Editors
 
 = 1.5.2 =
 * The Shortcode now automatically adds useful information about the post or taxonomy to every link in the frontend. See Screenshot #7 for more information
