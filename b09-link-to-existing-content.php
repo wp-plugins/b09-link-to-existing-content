@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 1.5.3
+	Version: 1.6
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -81,7 +81,7 @@
 			}
 			
 			add_action("plugins_loaded", array($this, "load_text_domain"));
-			add_action("init", array($this, "init"));
+			add_action("init", array($this, "init"), 100);
 			add_action('wp_ajax_b09-link-ajax', array($this, "ajax_link_action") );
 			
 			// Filters for the Plugins Overview
@@ -89,7 +89,7 @@
 			
 			// Add the plugin scripts
 			global $pagenow;
-			if(is_admin() && in_array($pagenow, array("post.php", "post-new.php", "media.php", "admin.php"))){
+			if(is_admin()){
 				add_action("admin_enqueue_scripts", array($this, "plugin_scripts") );
 			}
 			
@@ -283,7 +283,9 @@
 					die("false");
 				
 				
-				$query = array();
+				$query = array(
+					"hide_empty" => false,
+				);
 				
 				// Add the search string to the query if any was given
 				if ( isset( $args['s'] ) )
