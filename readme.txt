@@ -99,6 +99,7 @@ A. No one did, but if he would, here would be the answers ;)
 == Changelog ==
 
 = 1.5.3 =
+* CAUTION: after this update you have to **re-activate the plugin in the plugins panel**, because I decided to rename the main php file and wordpress will think the plugin was removed.
 * The script now also loads on the admin page "admin.php", not just the "post.php" pages. This makes it possible to also use the plugin on options pages with WYSIWYG-Editors
 
 = 1.5.2 =
