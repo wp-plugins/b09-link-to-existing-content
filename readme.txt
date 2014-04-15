@@ -2,7 +2,7 @@
 Contributors: BASICS09
 Tags: wplink, links, internal, suppress_filters, filter, shortcode, tinymce, wysiwyg, admin, developer
 Requires at least: 3.2.3
-Tested up to: 3.8
+Tested up to: 3.8.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -98,8 +98,13 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 1.6 =
+* **CAUTION**: after this update you have to **re-activate the plugin in the plugins panel**, because I decided to rename the main php file and wordpress will think the plugin was removed.
+
+* The plugin now also loads empty taxonomies, so you can link to them before they get filled up
+* The script files now load on all admin screens, so wherever there is a WYSIWYG-editor, you can also use the Link To Existing Content functionality.
+
 = 1.5.3 =
-* CAUTION: after this update you have to **re-activate the plugin in the plugins panel**, because I decided to rename the main php file and wordpress will think the plugin was removed.
 * The script now also loads on the admin page "admin.php", not just the "post.php" pages. This makes it possible to also use the plugin on options pages with WYSIWYG-Editors
 
 = 1.5.2 =
