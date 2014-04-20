@@ -38,3 +38,8 @@
 #wp-link .query-results {
 	top: 235px !important;
 }
+@media screen and (max-width: 782px) {
+	#wp-link .query-results {
+		top: 260px !important;
+	}
+}
