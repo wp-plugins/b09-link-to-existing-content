@@ -34,7 +34,7 @@ If you think it works and you like the functionality, don't wait and rate it her
 
 == Installation ==
 
-1. Upload 'b09.link-to-existing-content' to the '/wp-content/plugins/' directory
+1. Upload the folder ‘b09-link-to-existing-content' to the '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Done. The plugin integrates seamlessly with the wordpress interface.
 4. Use Filters to customize the plugins behaviour, see source code of for documentation
