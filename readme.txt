@@ -98,6 +98,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 1.7.1 =
+* Fixed CSS to adapt to new admin css in WP 3.9
+
 = 1.7 =
 * **WP 3.9 COMPATIBILITY**: Wordpress 3.9 made a major TinyMCE upgrade which is covered by this version of the plugin.
 
