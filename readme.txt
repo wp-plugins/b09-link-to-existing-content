@@ -111,7 +111,7 @@ A. No one did, but if he would, here would be the answers ;)
 * Various UI improvements with more transparent shortcode handling
 
 = 2.0 =
-* Added Functionality for linking to files, as requested here: <a href="https://wordpress.org/support/topic/adding-media-to-the-search?replies=1">https://wordpress.org/support/topic/adding-media-to-the-search?replies=1</a>. Just select "Attachments" in the "Serch in" Select.
+* Added Functionality for linking to files, as requested here: <a href="https://wordpress.org/support/topic/adding-media-to-the-search?replies=1">https://wordpress.org/support/topic/adding-media-to-the-search?replies=1</a>. Just select "Attachments" in the "Search in" – Select Field.
 
 = 1.9 =
 * **WP 4.2 COMPATIBILITY**: You should not use the plugin on a lower version than 4.2 after this update.
