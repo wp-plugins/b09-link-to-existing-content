@@ -22,7 +22,7 @@ var wpLink, ltecWpLink;
 	$(document).ready(function(){
 		
 		// For Development
-		setTimeout(wpLink.open, 100);
+		// setTimeout(wpLink.open, 100);
 		
 	})
 	
