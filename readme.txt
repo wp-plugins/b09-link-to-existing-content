@@ -1,7 +1,7 @@
 === B09 Link to Existing Content ===
 Contributors: BASICS09
 Tags: wplink, links, internal, suppress_filters, filter, shortcode, tinymce, wysiwyg, admin, developer
-Requires at least: 3.2.3
+Requires at least: 4.2
 Tested up to: 3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -102,6 +102,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 
 == Changelog ==
+
+= 1.9 =
+* **WP 4.2 COMPATIBILITY**: You should not use the plugin on a lower version than 4.2 after this update.
 
 = 1.8 =
 * Introduced new filter to deactivate the admin script, in case you run into compatibility trouble

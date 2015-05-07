@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 1.8
+	Version: 1.9
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -80,13 +80,14 @@
 			
 			// Hack: Overwrite the $_SERVER["SCRIPT_NAME"], so that Search Everything can add it's filters
 			
+			// Disabled for compatibility reasons
 			if (basename($_SERVER["SCRIPT_NAME"]) == "admin-ajax.php") {	
 				$_SERVER["SCRIPT_NAME"] = $this->path . "/b09-link-to-existing-content.php";
 			}
 			
 			add_action("plugins_loaded", array($this, "load_text_domain"));
 			add_action("init", array($this, "init"), 100);
-			add_action('wp_ajax_b09-link-ajax', array($this, "ajax_link_action") );
+			add_action('wp_ajax_b09-link-ajax', array($this, "ajax_search_posts") );
 			
 			// Filters for the Plugins Overview
 			add_filter('plugin_action_links_' .plugin_basename( __FILE__ ), array( &$this, 'action_links') );
@@ -102,8 +103,6 @@
 				include ( $this->path  . '/views/ltec.options.php' );
 				$ltec_admin = new Link_to_Existing_Content_Options($this->path);
 			}
-			
-			
 			
 		}
 		
@@ -247,11 +246,11 @@
 					'update' => __('Update', 'ltec'),
 					'save' => __('Add Link', 'ltec'),
 					'noTitle' => __('(no title)', 'ltec'),
+					'noMatchesFound' => __('No matches found.', 'ltec'),
 					'searchPostsLabel' => __('Posts', 'ltec'),
 					'searchCategoriesLabel' => __('Taxonomies', 'ltec'),
-					'noMatchesFound' => __('No matches found.', 'ltec'),
 					'shortcodeLabel' => __('Shortcode', 'ltec'),
-					'saveShortcode' => __('Add Shortcode', 'ltec'),
+					'saveShortcodeText' => __('Add Shortcode', 'ltec'),
 					'titlePlaceholder' => __('Automatic, type here to customize...', 'ltec'),
 					'searchIn' => __('Search in', 'ltec')
 				),
@@ -260,13 +259,13 @@
 				'shortcodeName' => $this->shortcode_name,
 				
 			);
-						
+			
 			wp_localize_script("b09-wplink-script", "linkToExistingContent", $ltec_localized);
 
 		}
 		
 		/*
-		* 	Function ajax_link_action
+		* 	Function ajax_search_posts
 		*
 		*	@description: The Ajax function for searching posts
 		* 	@param: none
@@ -274,15 +273,12 @@
 		*
 		*/
 		
-		function ajax_link_action(){
-			
-			
+		function ajax_search_posts(){
 			
 			// Parse the given arguments
 			$args["pagenum"] = isset($_POST["page"]) ? absint( $_POST["page"] ) : 1;
 			
 			$args["s"] = isset($_POST["search"]) ? $_POST["search"] : false;
-			
 			
 			$args["objectType"] = isset($_POST["objectType"]) ? $_POST["objectType"] : "posts";
 			
@@ -403,7 +399,7 @@
 				die (json_encode($results));
 			}
 			
-			die("false");
+			die("error false");
 		}
 		
 		/*
