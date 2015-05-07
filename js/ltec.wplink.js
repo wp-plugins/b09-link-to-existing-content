@@ -69,12 +69,14 @@ var wpLink, ltecWpLink;
 			inputs.searchSelect = $("#ltec-search-select");
 			inputs.searchSelect.append("<option class='posts' value='posts' selected='selected'>"+wpLinkL10n.searchPostsLabel+"</option>");
 			inputs.searchSelect.append("<option class='taxonomies' value='taxonomies'>"+wpLinkL10n.searchCategoriesLabel+"</option>");
+			inputs.searchSelect.append("<option class='attachments' value='attachments'>"+wpLinkL10n.searchAttachmentsLabel+"</option>");
+
 			inputs.searchSelect.change(function(){
 				wpLink.lastSearch = -1;
 				ltecWpLink.objectType = inputs.searchSelect.find("option:selected").val();
 				inputs.search.val("");
 				inputs.search.trigger("keyup");
-			})
+			});
 			
 			
 		},
@@ -639,8 +641,10 @@ var wpLink, ltecWpLink;
 				search = t.val();
 
 			// B09 Modification
-			if ( search.length > 2  || ltecWpLink.objectType == "taxonomies") {
-				
+			if ( search.length > 2  || wpLink.lastSearch !== search) {
+
+				rivers.search.ul.empty();
+
 				// End B09 Modification
 
 				rivers.recent.hide();
@@ -938,7 +942,7 @@ var wpLink, ltecWpLink;
 			this.querying = true;
 
 			$.post( ajaxurl, query, function( r ) {
-				self.page++;
+				self.page ++;
 				self.querying = false;
 				self.allLoaded = ! r;
 				callback( r, query );

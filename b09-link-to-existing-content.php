@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 1.9.1
+	Version: 2.0
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -176,10 +176,31 @@
 					$text = $title;
 				
 			} else {
-				// if it is a post link
-				$link = get_permalink($id);
-				$link_class .= " post-link";
-					
+
+				$post = get_post($id);
+
+				// if the post doesn't exist
+				if( !$post )
+					return $text;
+
+
+				// if the post is not published
+				if( "publish" !== get_post_status( $post ) )
+					return $text;
+
+
+				$link = false;
+				if( "attachment" === get_post_type( $post ) ) {
+					$link = wp_get_attachment_url( $post->ID );
+					$link_class .= " attachment-link";
+
+				} else {
+					// if it is a post link
+					$link = get_permalink($post);
+					$link_class .= " post-link";
+				}
+
+				
 				// add post type and id to link class
 				$post_type = get_post_type($id);
 				if($post_type)
@@ -249,6 +270,7 @@
 					'noMatchesFound' => __('No matches found.', 'ltec'),
 					'searchPostsLabel' => __('Posts', 'ltec'),
 					'searchCategoriesLabel' => __('Taxonomies', 'ltec'),
+					'searchAttachmentsLabel' => __('Attachments', 'ltec'),
 					'shortcodeLabel' => __('Shortcode', 'ltec'),
 					'saveShortcodeText' => __('Add Shortcode', 'ltec'),
 					'titlePlaceholder' => __('Automatic, type here to customize...', 'ltec'),
@@ -282,7 +304,7 @@
 			
 			$args["objectType"] = isset($_POST["objectType"]) ? $_POST["objectType"] : "posts";
 			
-			if($args["objectType"] == "taxonomies"){
+			if( "taxonomies" === $args["objectType"] ) {
 				// Get all registered public taxonomies
 				$taxonomies = get_taxonomies( array( 'public' => true ), 'objects' );
 				$tax_names = array_keys( $taxonomies );
@@ -333,39 +355,60 @@
 				die(json_encode($results));
 				// End Taxonomies
 			} else {
-			
-				// Get all registered public post types
-				$pts = get_post_types( array( 'public' => true ), 'objects' );
-				unset($pts["attachment"]);
 				
-				$pt_names = array_keys( $pts );
+				$pts = array();
+				$post_status = '';
+
+				// If we are looking for Attachments
+				if( "attachments" === $args["objectType"] ) {
+
+					$pts = array(
+						"attachment" => get_post_type_object( "attachment" )
+					);
+					$post_status = 'any';
+					$pt_names = array( "attachment" );
+
+
+				} else {
+
+					// If we are looking for normal Post Types
+
+					// Get all registered public post types
+					$pts = get_post_types( array( 'public' => true ), 'objects' );
+					unset($pts["attachment"]);	
+
+					$post_status = 'published';
+
+					$pt_names = array_keys( $pts );
+					
+					// overwrite the post types with the post types stored in the ltec options
+					if( isset($this->options["post_types"]) )
+						$pt_names = $this->options["post_types"];
+					
+					// Apply the post_types filter
+					$pt_names = apply_filters("link_to_existing_content_post_types", $pt_names);
+				}
 				
-				// overwrite the taxonomies with the taxonomies stored in the ltec options
-				if(isset($this->options["post_types"]))
-					$pt_names = $this->options["post_types"];
-				
-				
-				// Apply the post_types filter
-				$pt_names = apply_filters("link_to_existing_content_post_types", $pt_names);
 				
 				if(!is_array($pt_names) || !count($pt_names))
 					die("false");
 				
-				
+
 				// Build the default query parameters, with suppress_filters set to false for advanced searching capabilities
 				$query = array(
 					'post_type' => $pt_names,
 					'suppress_filters' => false,
 					'update_post_term_cache' => false,
 					'update_post_meta_cache' => false,
-					'post_status' => 'publish',
+					'post_status' => $post_status,
 					'order' => 'DESC',
 					'orderby' => 'post_date',
-					'posts_per_page' => 20
+					'posts_per_page' => 20,
+					'numberposts' => 20
 				);
 				
 				// Add the search string to the query if any was given
-				if ( isset( $args['s'] ) )
+				if ( isset( $args['s'] ) && $args['s'] !== false )
 					$query['s'] = $args['s'];
 				
 				// Calculate the offset
@@ -374,7 +417,7 @@
 				// Do main query.
 				$get_posts = new WP_Query;
 				$posts = $get_posts->query( $query );
-				
+
 				// Check if any posts were found.
 				if ( ! $get_posts->post_count )
 					die("false");
@@ -383,14 +426,21 @@
 				// Build results.
 				$results = array();
 				foreach ( $posts as $post ) {
-					if ( 'post' == $post->post_type )
+
+					$title = trim( esc_html( strip_tags( get_the_title( $post ) ) ) );
+
+					if ( 'post' == $post->post_type ) {
 						$info = mysql2date( __( 'Y/m/d' ), $post->post_date );
-					else
+					} if ( 'attachment' === $post->post_type ) {
+						$info = get_post_mime_type($post->ID);
+						$title = basename( wp_get_attachment_url( $post->ID ) );
+					} else {
 						$info = $pts[ $post->post_type ]->labels->singular_name;
+					}
 			
 					$results[] = array(
 						'ID' => $post->ID,
-						'title' => trim( esc_html( strip_tags( get_the_title( $post ) ) ) ),
+						'title' => $title,
 						'permalink' => get_permalink( $post->ID ),
 						'info' => $info,
 					);

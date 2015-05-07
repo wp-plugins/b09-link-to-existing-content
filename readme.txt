@@ -14,6 +14,7 @@ Improves the built in "Link to existing content" dialog. Provides filters, has o
 = About this Plugin =
 B09 Link to Existing Content is a small plugin that is ment to improve the wordpress "Link to existing content"-functionality.
 
+
 * Default Behaviour is seamless, just continue using the Link PopUp as always
 * New in version 1.5: Options Page to alter your personal settings
 * Consider installing the plugin <a title='Search Everyting' href='http://wordpress.org/plugins/search-everything/'>Search Everything</a> for full control over the search results when using "Link to existing Content"
@@ -102,6 +103,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 
 == Changelog ==
+
+= 2.0 =
+* Added Functionality for linking to files, as requested here: <a href="https://wordpress.org/support/topic/adding-media-to-the-search?replies=1">https://wordpress.org/support/topic/adding-media-to-the-search?replies=1</a>. Just select "Attachments" in the "Serch in" Select.
 
 = 1.9 =
 * **WP 4.2 COMPATIBILITY**: You should not use the plugin on a lower version than 4.2 after this update.
