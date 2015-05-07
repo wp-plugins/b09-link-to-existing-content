@@ -104,6 +104,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 2.1.1 =
+* Fixed small nasty bug with link popup overlaying everything
+
 = 2.1 =
 * Various UI improvements with more transparent shortcode handling
 
