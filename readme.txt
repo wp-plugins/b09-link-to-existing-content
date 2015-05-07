@@ -104,6 +104,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 2.1 =
+* Various UI improvements with more transparent shortcode handling
+
 = 2.0 =
 * Added Functionality for linking to files, as requested here: <a href="https://wordpress.org/support/topic/adding-media-to-the-search?replies=1">https://wordpress.org/support/topic/adding-media-to-the-search?replies=1</a>. Just select "Attachments" in the "Serch in" Select.
 

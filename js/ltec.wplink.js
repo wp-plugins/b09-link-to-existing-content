@@ -20,7 +20,10 @@ var wpLink, ltecWpLink;
 
 	// B09 Modification
 	$(document).ready(function(){
-		//$("#wp-link").parents("div").show().prependTo("body");
+		
+		// For Development
+		setTimeout(wpLink.open, 100);
+		
 	})
 	
 	ltecWpLink = {
@@ -32,28 +35,32 @@ var wpLink, ltecWpLink;
 			inputs.url.prev("span").addClass("label label-url").clone().insertAfter(".label-url:first").addClass("label label-shortcode").removeClass("label-url").text(wpLinkL10n.shortcodeLabel);
 			
 			// Add clear-shortcode button
-			inputs.url.after("<div id='clear-shortcode'> </div>");
+			inputs.clearShortcodeButton = $("<div id='clear-shortcode-button'> </div>");
+			inputs.url.after( inputs.clearShortcodeButton );
 			
 			// Add click handler to url label
-			inputs.url.parents("label:first").click(function(){
-				if($(this).hasClass("has-shortcode")) {
-					ltecWpLink.resetFields();	
+			inputs.clearShortcodeButton.click(function(){
+
+				if( $(this).parents(".has-shortcode").length ) {
+					ltecWpLink.clearShortcode();
 				};
-			})
+
+			});
 			
 			// Stop the search results from reacting to keyboard events in the url / title field
 			$("#link-options").keydown(function(e){
 				e.stopPropagation();
 			})
-		
 			
 			// Update the shortcode title on key events in the title field
 			inputs.text.keyup(function() {
 				ltecWpLink.updateShortcodeText();
 			});
-			$("#link-options").click(function() {
-				ltecWpLink.updateShortcodeText();
+
+			inputs.openInNewTab.change(function() {
+				ltecWpLink.updateShortcodeTarget();
 			});
+
 			
 			// Build the Post Type – Taxonomy Select
 			var $searchWrap = $("#search-panel .link-search-wrapper label:first");
@@ -90,7 +97,7 @@ var wpLink, ltecWpLink;
 			return (inputs.url.val().indexOf("[link") != -1);
 		},
 		
-	    resetFields : function() {
+	    clearShortcode : function() {
 			$("label.has-shortcode").removeClass("has-shortcode");
 			inputs.url.val("http://").prop("readonly", false).trigger("keyup");
 			inputs.text.val("");
@@ -130,15 +137,18 @@ var wpLink, ltecWpLink;
 			var shortCode = '['+linkToExistingContent.shortcodeName;
 				shortCode += ' id="' + internalLinkId + '"';
 				shortCode += taxName != "undefined" ? ' tax="' + taxName + '"' : '';
-				shortCode += selection ? ' text="' + selection + '"' : false;
+				shortCode += selection ? ' text="' + selection + '"' : '';
 			    shortCode += ']';
 			
 			linkToExistingContent.currentShortCode = shortCode;
-			
+
+		
 			inputs.url.val(shortCode);
-			inputs.url.prop('readonly', true).parents("label:first").addClass("has-shortcode");
+			inputs.url.prop("readonly", true).parents("label:first").addClass("has-shortcode");
 			inputs.url.trigger("keyup");
-			
+
+			// add the target to the shortcode
+			ltecWpLink.updateShortcodeTarget();
 			
 			inputs.submit.val( wpLinkL10n.saveShortcodeText );
 			
@@ -160,9 +170,7 @@ var wpLink, ltecWpLink;
 		    var html, begin, end, cursor,
 				textarea = wpLink.textarea;
 			
-			var shortCode = inputs.url.val().split("]").join("");
-				shortCode += attrs.target.length ? ' target="' + attrs.target + '"' : '';
-				shortCode += ']';
+			var shortCode = inputs.url.val();
 			
 			if ( document.selection && wpLink.range ) {
 				// IE
@@ -192,19 +200,61 @@ var wpLink, ltecWpLink;
 		    
 	    },
 	    
-	    updateShortcodeText : function(){
+	    updateShortcodeText: function(){
 
 			if(!$("label.has-shortcode").length) return;
 
 			var linkText = inputs.text.val();
+		
 
 			if(linkText === ""){
-				inputs.url.val(linkToExistingContent.currentShortCode);
+
+				inputs.url.val( linkToExistingContent.currentShortCode );
+
 			} else {
-				var newShortCode = linkToExistingContent.currentShortCode.replace(/text=["'].*["']/i, 'text="' + linkText + '"');
-				inputs.url.val(newShortCode);
+
+				var shortCode = ltecWpLink.addShortcodeAttribute( inputs.url.val(), "text", linkText );
+				inputs.url.val( shortCode );
+
 			}
+		},
+
+		updateShortcodeTarget: function(){
+
+			if(!$("label.has-shortcode").length) return;
+
+			var newTarget = inputs.openInNewTab.prop('checked') ? '_blank' : '';
+			linkToExistingContent.currentShortCode = ltecWpLink.addShortcodeAttribute( linkToExistingContent.currentShortCode, 'target', newTarget );
+
+			inputs.url.val( linkToExistingContent.currentShortCode );
+
+		},
+
+		addShortcodeAttribute: function(shortCode, key, value) {
+
+			var searchRegExp = new RegExp(' ' + key + '=["\'].*?["\']', 'i' );
+
+			var replaceString = ' ' + key + '="' + value + '"';
+			if( value === '' ) {
+				replaceString = '';
+			}
+			var search = shortCode.search( searchRegExp )
+
+			if( -1 === search ) {
+				// If the key is not there yet, append it to the end
+				shortCode = shortCode.replace(/\]/i, replaceString + ']');
+
+			} else {
+				// If the key there already, replace it's value
+				shortCode = shortCode.replace(searchRegExp, replaceString);
+
+			}
+
+			return shortCode;
+
+
 		}
+
 	    
 	}
 	// End B09 Modification
@@ -289,10 +339,10 @@ var wpLink, ltecWpLink;
 			}
 
 			inputs.url.on( 'paste', function() {
-				setTimeout( correctURL, 0 );
+				//setTimeout( correctURL, 0 );
 			} );
 
-			inputs.url.on( 'blur', correctURL );
+			//inputs.url.on( 'blur', correctURL );
 
 			// B09 Modification
 			ltecWpLink.init();
@@ -602,7 +652,9 @@ var wpLink, ltecWpLink;
 				return;
 				
 			} else {
+
 				inputs.url.val( li.children( '.item-permalink' ).val() );
+
 			}
 			// End B09 Modification
 			
