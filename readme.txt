@@ -73,6 +73,11 @@ function my_link_to_existing_content_taxonomies($taxonomies){
 	return $taxonomies;
 }
 `
+= Q. The plugin breaks my visual editor. Can I disable only the admin behaviour? =
+A. Yes, you can! Put this in your functions.php:
+`
+add_filter("link_to_existing_content_use_admin_script", "__return_false");
+`
 = Q. Did anyone actually ask all those questions? =
 A. No one did, but if he would, here would be the answers ;)
 
@@ -97,6 +102,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 
 == Changelog ==
+
+= 1.8 =
+* Introduced new filter to deactivate the admin script, in case you run into compatibility trouble
 
 = 1.7.1 =
 * Fixed CSS to adapt to new admin css in WP 3.9

@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 1.7.1
+	Version: 1.8
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -31,6 +31,9 @@
 	
 	add_filter("link_to_existing_content_use_shortcode", "__return_true");
 	
+	// Disable Admin Script
+
+	add_filter("link_to_existing_content_use_admin_script", "__return_false");
 	
 	// Overwrite the default shortcode handling:
 	
@@ -66,6 +69,7 @@
 		var $nonce;
 		var $shortcode_name = "link";
 		var $use_shortcode = false;
+		var $use_admin_script = true;
 		var $options;
 		
 		function B09_Link_To_Existing_Content(){
@@ -111,6 +115,10 @@
 			
 			// Apply the use_shortcode filter
 			$this->use_shortcode = apply_filters("link_to_existing_content_use_shortcode", $this->use_shortcode);
+
+			// Apply the admin script filter
+			$this->use_admin_script = apply_filters("link_to_existing_content_use_admin_script", $this->use_admin_script);
+
 			// Add the shortcode hook
 			add_shortcode($this->shortcode_name, array($this, "render_link_shortcode"));
 		}
@@ -212,7 +220,12 @@
 		*/
 		
 		function plugin_scripts(){
-		
+			
+			// Don't do it if it was deactivated using the filter
+			if( !$this->use_admin_script ) {
+				return;
+			}
+
 			// deregister the default wordpress script
 			wp_deregister_script("wplink");
 			
