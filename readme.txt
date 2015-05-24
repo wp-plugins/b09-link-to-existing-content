@@ -104,6 +104,10 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 2.1.2 =
+* FIX: Link to files and not to attachment pages also if shortcode is disabled
+* FIX: Clear the shortcode field if the wplink-modal is being closed
+
 = 2.1.1 =
 * Fixed small nasty bug with link popup overlaying everything
 

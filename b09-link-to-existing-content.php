@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 2.1.1
+	Version: 2.1.2
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -428,20 +428,28 @@
 				foreach ( $posts as $post ) {
 
 					$title = trim( esc_html( strip_tags( get_the_title( $post ) ) ) );
+					$link = get_permalink( $post->ID );
 
 					if ( 'post' == $post->post_type ) {
+						
 						$info = mysql2date( __( 'Y/m/d' ), $post->post_date );
+
 					} if ( 'attachment' === $post->post_type ) {
+
 						$info = get_post_mime_type($post->ID);
-						$title = basename( wp_get_attachment_url( $post->ID ) );
+						$link = wp_get_attachment_url( $post->ID );
+						$title = basename( $link );
+
 					} else {
+
 						$info = $pts[ $post->post_type ]->labels->singular_name;
+
 					}
 			
 					$results[] = array(
 						'ID' => $post->ID,
 						'title' => $title,
-						'permalink' => get_permalink( $post->ID ),
+						'permalink' => $link,
 						'info' => $info,
 					);
 				}
@@ -457,7 +465,7 @@
 		*
 		*	@description print the instructions link to the plugins screen
 		*
-		* 	@param      array      $data
+		* @param      array      $data
 		*	@return     array      $data (modified) 		
 		*
 		*/

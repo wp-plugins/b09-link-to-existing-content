@@ -9,7 +9,7 @@
 *
 */
 
-var wpLink, ltecWpLink;
+var wpLink, ltecWpLink, originalLinkText;
 
 ( function( $ ) {
 	var editor, searchTimer, River, Query, correctedURL,
@@ -22,10 +22,23 @@ var wpLink, ltecWpLink;
 	$(document).ready(function(){
 		
 		// For Development
-		// setTimeout(wpLink.open, 100);
+		// if( "r.local" === window.location.host ) {
+		// 	setTimeout(wpLink.open, 100);
+		// }
 		
 	})
+
+	// Clear the shortcode if the modal is being closed
+	$(document).on("wplink-close", function() {
+		ltecWpLink.clearShortcode();
+	});
 	
+	// On Open, save the link text so it can be used if nothing is being written inside the field
+	$(document).on("wplink-open", function() {
+		originalLinkText = inputs.text.val();
+		console.log( originalLinkText );
+	});
+
 	ltecWpLink = {
 		
 		objectType : "posts",
@@ -84,8 +97,7 @@ var wpLink, ltecWpLink;
 				inputs.search.val("");
 				inputs.search.trigger("keyup");
 			});
-			
-			
+
 		},
 		
 		isMCE : function () {
@@ -97,25 +109,25 @@ var wpLink, ltecWpLink;
 			return (inputs.url.val().indexOf("[link") != -1);
 		},
 		
-	    clearShortcode : function() {
+	  clearShortcode : function() {
 			$("label.has-shortcode").removeClass("has-shortcode");
 			inputs.url.val("http://").prop("readonly", false).trigger("keyup");
 			inputs.text.val("");
 			inputs.text.attr("placeholder", "");
 		},
 	    
-	    parseShortcodeToUrlField : function(editor, li) {
-	    	
-	    	var selection = false,
-	    		textarea = wpLink.textarea,
-	    		begin,
-	    		end;
-	    	
-	    	if(wpLink.isMCE()){
-	    		// TinyMCE
-		    	editor.getDoc().execCommand("unlink", false, null);
-		    	selection = editor.selection.getContent();
-	    	} else if ( document.selection && wpLink.range ) {
+	  parseShortcodeToUrlField : function(editor, li) {
+    	
+    	var selection = false,
+    		textarea = wpLink.textarea,
+    		begin,
+    		end;
+    	
+    	if(wpLink.isMCE()){
+    		// TinyMCE
+	    	editor.getDoc().execCommand("unlink", false, null);
+	    	selection = editor.selection.getContent();
+    	} else if ( document.selection && wpLink.range ) {
 				// IE
 				// Note: If no text is selected, IE will not place the cursor
 				//       inside the closing tag.
@@ -126,7 +138,7 @@ var wpLink, ltecWpLink;
 		    	begin       = textarea.selectionStart;
 				end         = textarea.selectionEnd;
 				selection   = textarea.value.substring( begin, end );
-	    	}
+	    }
 		    
 			
 			var attrs = wpLink.getAttrs();
@@ -152,10 +164,10 @@ var wpLink, ltecWpLink;
 			
 			inputs.submit.val( wpLinkL10n.saveShortcodeText );
 			
-	    },
+	  },
 	    
-	    mceInsertShortcode : function(editor, attrs) {
-		    editor.getDoc().execCommand("unlink", false, null);
+	  mceInsertShortcode : function(editor, attrs) {
+		  editor.getDoc().execCommand("unlink", false, null);
 
 			var shortCode = inputs.url.val().split("]").join("");
 				shortCode += attrs.target.length ? ' target="' + attrs.target + '"' : '';
@@ -163,12 +175,12 @@ var wpLink, ltecWpLink;
 			
 			editor.selection.setContent(shortCode);
 			editor.focus();
-	    },
+	  },
 	    
-	    htmlInsertShortcode : function(attrs) {
+	  htmlInsertShortcode : function(attrs) {
 		    
-		    var html, begin, end, cursor,
-				textarea = wpLink.textarea;
+	    var html, begin, end, cursor,
+			textarea = wpLink.textarea;
 			
 			var shortCode = inputs.url.val();
 			
@@ -198,25 +210,24 @@ var wpLink, ltecWpLink;
 				textarea.selectionStart = textarea.selectionEnd = cursor;
 			}
 		    
-	    },
+	  },
 	    
-	    updateShortcodeText: function(){
+	  updateShortcodeText: function(){
 
-			if(!$("label.has-shortcode").length) return;
+			if(!$("label.has-shortcode").length) {
+				return;
+			}
 
 			var linkText = inputs.text.val();
 		
-
 			if(linkText === ""){
 
-				inputs.url.val( linkToExistingContent.currentShortCode );
-
-			} else {
-
-				var shortCode = ltecWpLink.addShortcodeAttribute( inputs.url.val(), "text", linkText );
-				inputs.url.val( shortCode );
+				linkText = originalLinkText;
 
 			}
+
+			linkToExistingContent.currentShortCode = ltecWpLink.addShortcodeAttribute( inputs.url.val(), "text", linkText );
+			inputs.url.val( linkToExistingContent.currentShortCode );
 		},
 
 		updateShortcodeTarget: function(){
@@ -249,9 +260,7 @@ var wpLink, ltecWpLink;
 				shortCode = shortCode.replace(searchRegExp, replaceString);
 
 			}
-
 			return shortCode;
-
 
 		}
 
