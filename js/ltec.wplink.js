@@ -20,23 +20,26 @@ var wpLink, ltecWpLink, originalLinkText;
 
 	// B09 Modification
 	$(document).ready(function(){
-		
+		  
 		// For Development
-		// if( "r.local" === window.location.host ) {
-		// 	setTimeout(wpLink.open, 100);
-		// }
+		if( "r.local" === window.location.host || "localhost:3000" === window.location.host ) {
+		 	// setTimeout(wpLink.open, 100);
+		}
 		
 	})
 
 	// Clear the shortcode if the modal is being closed
 	$(document).on("wplink-close", function() {
-		ltecWpLink.clearShortcode();
+    // Wait for any parsing to take place
+    setTimeout(function() {
+      ltecWpLink.clearShortcode();
+    }, 2);
+		// 
 	});
 	
 	// On Open, save the link text so it can be used if nothing is being written inside the field
 	$(document).on("wplink-open", function() {
 		originalLinkText = inputs.text.val();
-		console.log( originalLinkText );
 	});
 
 	ltecWpLink = {
@@ -175,6 +178,7 @@ var wpLink, ltecWpLink, originalLinkText;
 			
 			editor.selection.setContent(shortCode);
 			editor.focus();
+
 	  },
 	    
 	  htmlInsertShortcode : function(attrs) {

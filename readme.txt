@@ -104,6 +104,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 2.1.3 =
+* FIX: <a href="https://wordpress.org/support/topic/shortcode-compatibility-with-wordpress-422?replies=1#post-7088353">Bug</a> that prevented the shortcode to be pasted to the tinymce textarea correctly. 
+
 = 2.1.2 =
 * FIX: Link to files and not to attachment pages also if shortcode is disabled
 * FIX: Clear the shortcode field if the wplink-modal is being closed
