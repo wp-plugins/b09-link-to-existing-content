@@ -451,6 +451,7 @@
 						'title' => $title,
 						'permalink' => $link,
 						'info' => $info,
+                        'parent' => $this->get_earliest_relative( $post ),
 					);
 				}
 			
@@ -460,12 +461,12 @@
 			die("error false");
 		}
 		
-		/*
+		/**
 		*	Function action_links
 		*
 		*	@description print the instructions link to the plugins screen
 		*
-		* @param      array      $data
+		*   @param      array      $data
 		*	@return     array      $data (modified) 		
 		*
 		*/
@@ -482,7 +483,20 @@
 				)
 			);
 		}
-		
+
+        /**
+         * [Gets the top most parent of a post. If post is top most parent, returns 0]
+         * @param      WP_Post  $post
+         * @return     WP_Post  [top most parent]
+         */
+        function get_earliest_relative($post)
+        {
+            if ($post->post_parent){
+                $ancestors=get_post_ancestors($post->ID);
+                return get_post($ancestors[count($ancestors)-1])->post_title;
+            } 
+            return 0;
+        }
 		
 	}
 ?>

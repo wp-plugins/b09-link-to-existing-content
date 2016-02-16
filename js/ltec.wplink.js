@@ -943,6 +943,7 @@ var wpLink, ltecWpLink, originalLinkText;
 					list += '<input type="hidden" class="item-id" value="' + this['ID'] + '" />';
 
 					list += '<span class="item-title">';
+                    list += this.parent ? this.parent + ' - ' : '' ;
 					list += this.title ? this.title : wpLinkL10n.noTitle;
 					list += '</span><span class="item-info">' + this.info + '</span></li>';
 					alt = ! alt;
