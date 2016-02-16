@@ -1,8 +1,8 @@
-=== B09 Link to Existing Content ===
+﻿=== B09 Link to Existing Content ===
 Contributors: BASICS09
 Tags: wplink, links, internal, suppress_filters, filter, shortcode, tinymce, wysiwyg, admin, developer
 Requires at least: 4.2
-Tested up to: 4.2.2
+Tested up to: 4.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,6 +103,9 @@ A. No one did, but if he would, here would be the answers ;)
 
 
 == Changelog ==
+
+= 2.1.4 = 
+Minor CSS fixes for the options page 
 
 = 2.1.3 =
 * FIX: <a href="https://wordpress.org/support/topic/shortcode-compatibility-with-wordpress-422?replies=1#post-7088353">Bug</a> that prevented the shortcode to be pasted to the tinymce textarea correctly. 
