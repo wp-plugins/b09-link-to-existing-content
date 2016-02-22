@@ -931,6 +931,7 @@ var wpLink, ltecWpLink, originalLinkText;
 						wpLinkL10n.noMatchesFound + '</em></span></li>';
 				}
 			} else {
+                console.log(results);
 				$.each( results, function() {
 					classes = alt ? 'alternate' : '';
 					classes += this.title ? '' : ' no-title';
@@ -943,7 +944,6 @@ var wpLink, ltecWpLink, originalLinkText;
 					list += '<input type="hidden" class="item-id" value="' + this['ID'] + '" />';
 
 					list += '<span class="item-title">';
-                    list += this.parent ? this.parent + ' - ' : '' ;
 					list += this.title ? this.title : wpLinkL10n.noTitle;
 					list += '</span><span class="item-info">' + this.info + '</span></li>';
 					alt = ! alt;

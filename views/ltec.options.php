@@ -80,13 +80,13 @@ class Link_to_Existing_Content_Options {
         // read the options
         // delete_option("ltec_options");
         $options = get_option("ltec_options");
-
         
         $active_post_types = isset($options["post_types"]) ? $options["post_types"] : array();
         $active_taxonomies = isset($options["taxonomies"]) ? $options["taxonomies"] : array();
         $use_shortcode = isset($options["use_shortcode"]) ? (bool) $options["use_shortcode"] : false;
+        $parent_page = isset($options["parent_page"]) ? (bool) $options["parent_page"] : false;
+        $ancestor_pages = isset($options["ancestor_pages"]) ? (bool) $options["ancestor_pages"] : false;
 
-        
         // Detect eventual Filters and overwrite settings with them
         
         $filter_exists_post_types = false;
@@ -229,6 +229,39 @@ class Link_to_Existing_Content_Options {
                                 <td>
                                     <label for="ltec_use_shortcode">
                                         <?php _e("Enable the plugin's built-in shortcode functionality. This will prevent links leading to 404-Pages, if the linked content doesn't exist anymore or if the site was moved to a different web address", "link-to-existing-content"); ?>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="widefat striped">
+                        <thead>
+                            <tr class="title">
+                                <th class="manage-column column-cb check-column hidden" scope="col"></th>
+                                <th colspan="2" class="manage-column" scope="col">
+                                    <label for="cb-shortcode"><?php _e("Ancestor Page Names", "link-to-existing-content"); ?></label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="check-column">
+                                    <input type="checkbox" value="true" <?php if($parent_page) echo "checked='checked'"; ?> id="ltec_parent_page" name="ltec_options[parent_page]"></input>
+                                </td>
+                                <td>
+                                    <label for="ltec_parent_page">
+                                        <?php _e("Show the name of the Parent Page next to the Page Name (if you have multiple pages with the same name, 'About' for example, with different parent page's this will help.)", "link-to-existing-content"); ?>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="check-column">
+                                    <input type="checkbox" value="true" <?php if($ancestor_pages) echo "checked='checked'"; ?> id="ltec_ancestor_pages" name="ltec_options[ancestor_pages]"></input>
+                                </td>
+                                <td>
+                                    <label for="ltec_ancestor_pages">
+                                        <?php _e("Show the entire ancestry of the page.<br />Example:<br />About - Sub Page - Sub Sub Page - Page you are looking for", "link-to-existing-content"); ?>
                                     </label>
                                 </td>
                             </tr>

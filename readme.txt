@@ -104,6 +104,10 @@ A. No one did, but if he would, here would be the answers ;)
 
 == Changelog ==
 
+= 2.1.6 = 
+
+* Added Option in Settings for Parent Page name or the full Ancestor Hierarchy
+
 = 2.1.5 = 
 
 * Parent Page Titles added in link to content in the case of multiple child pages with the same name but different parents
