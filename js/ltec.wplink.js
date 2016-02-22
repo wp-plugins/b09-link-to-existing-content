@@ -931,6 +931,7 @@ var wpLink, ltecWpLink, originalLinkText;
 						wpLinkL10n.noMatchesFound + '</em></span></li>';
 				}
 			} else {
+                console.log(results);
 				$.each( results, function() {
 					classes = alt ? 'alternate' : '';
 					classes += this.title ? '' : ' no-title';

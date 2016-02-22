@@ -3,7 +3,7 @@
 	Plugin Name: B09 Link to Existing Content
 	Plugin URI: http://wordpress.org/plugins/b09-link-to-existing-content/
 	Description: Seamless integration of the "Link to existing Content"-Functionality in Wordpress with the plugin "Search Everything". Gives you control over the post types and taxonomies you want to link to. Optional shortcode-feature for internal links, with id, linktext and target. Read the <a href='http://wordpress.org/plugins/b09-link-to-existing-content/faq/' target='_blank'>plugin FAQs</a> for more information.
-	Version: 2.1.3
+	Version: 2.1.6
 	Author: BASICS09
 	Author URI: http://www.basics09.de
 	
@@ -69,6 +69,8 @@
 		var $nonce;
 		var $shortcode_name = "link";
 		var $use_shortcode = false;
+        var $parent_page = false;
+        var $ancestor_pages = false;
 		var $use_admin_script = true;
 		var $options;
 		
@@ -108,9 +110,13 @@
 		
 		function init(){
 			
-			// Overwrite the use_shortcode setting with the stored option
+			// Overwrite the settings with the stored option
 			if(isset($this->options["use_shortcode"]))
 				$this->use_shortcode = (bool) $this->options["use_shortcode"];
+            if(isset($this->options["parent_page"]))
+                $this->parent_page = (bool) $this->options["parent_page"];
+            if(isset($this->options["ancestor_pages"]))
+                $this->ancestor_pages = (bool) $this->options["ancestor_pages"];
 			
 			// Apply the use_shortcode filter
 			$this->use_shortcode = apply_filters("link_to_existing_content_use_shortcode", $this->use_shortcode);
@@ -445,13 +451,33 @@
 						$info = $pts[ $post->post_type ]->labels->singular_name;
 
 					}
-			
-					$results[] = array(
-						'ID' => $post->ID,
-						'title' => $title,
-						'permalink' => $link,
-						'info' => $info,
-					);
+			         
+                    $data = array(
+                        'ID' => $post->ID,
+                        'title' => $title,
+                        'permalink' => $link,
+                        'info' => $info,
+                    );
+
+                    if ( $this->ancestor_pages && $post->post_parent ) {
+
+                        $data['title'] = '';
+
+                        foreach(array_reverse(get_post_ancestors($post->ID)) as $ancestor){
+
+                            $data['title'] .= get_post($ancestor)->post_title . ' - ';
+
+                        }
+
+                        $data['title'] .= '<strong>'.$title.'</strong>';
+
+                    } else if ( $this->parent_page && $post->post_parent ) {
+
+                        $data['title'] = get_post($post->post_parent)->post_title . ' - <strong>'.$title.'</strong>';
+
+                    }
+
+					$results[] = $data;
 				}
 			
 				die (json_encode($results));
@@ -460,12 +486,12 @@
 			die("error false");
 		}
 		
-		/*
+		/**
 		*	Function action_links
 		*
 		*	@description print the instructions link to the plugins screen
 		*
-		* @param      array      $data
+		*   @param      array      $data
 		*	@return     array      $data (modified) 		
 		*
 		*/
@@ -482,7 +508,5 @@
 				)
 			);
 		}
-		
-		
 	}
 ?>
